@@ -1,0 +1,119 @@
+
+{
+  "metaworld" : 
+  {
+    "allowSleep" : true,
+    "autoClearForces" : true,
+    "continuousPhysics" : true,
+    "gravity" : 
+    {
+      "x" : 0,
+      "y" : -10.0
+    },
+    "metabody" : 
+    [
+      
+      {
+        "angle" : 0,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2000000029802322,
+            "id" : 1,
+            "name" : "fixture0",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "line"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : [ -5.0, 5.0 ],
+              "y" : [ 0.0, 0.0 ]
+            }
+          }
+        ],
+        "id" : 1,
+        "linearVelocity" : 0,
+        "name" : "body0",
+        "position" : 0,
+        "type" : "static"
+      },
+      
+      {
+        "angle" : 0,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2000000029802322,
+            "id" : 2,
+            "name" : "fixture1",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                -1.50,
+                -0.6480083465576172,
+                -0.4856147766113281,
+                0.5428857803344727,
+                0.7594118118286133,
+                1.50,
+                0.6036767959594727,
+                -0.6036767959594727
+              ],
+              "y" : 
+              [
+                -1.50,
+                -1.50,
+                -0.5055580139160156,
+                -0.5055580139160156,
+                -1.50,
+                -1.50,
+                2.293928146362305,
+                2.293928146362305
+              ]
+            }
+          }
+        ],
+        "id" : 2,
+        "linearVelocity" : 0,
+        "massData-I" : 11.06558895111084,
+        "massData-center" : 
+        {
+          "x" : -0.007669709157198668,
+          "y" : 0.3343821167945862
+        },
+        "massData-mass" : 6.770007610321045,
+        "name" : "body1",
+        "position" : 
+        {
+          "x" : 0,
+          "y" : 3.099999904632568
+        },
+        "type" : "dynamic"
+      }
+    ],
+    "positionIterations" : 3,
+    "stepsPerSecond" : 60.0,
+    "subStepping" : false,
+    "velocityIterations" : 8,
+    "warmStarting" : true
+  }
+}

@@ -1,0 +1,309 @@
+
+{
+  "metaworld" : 
+  {
+    "allowSleep" : true,
+    "autoClearForces" : true,
+    "continuousPhysics" : true,
+    "gravity" : 
+    {
+      "x" : 0,
+      "y" : "C1200000"
+    },
+    "metabody" : 
+    [
+      
+      {
+        "angle" : 0,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : "3F4CCCCD",
+            "id" : 2,
+            "name" : "leftground",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                "C1E8FA8D",
+                "C1BD97EF",
+                "C1B302BE",
+                "C1A36EB1",
+                "C1884669",
+                "C162E1CC",
+                "C132559C",
+                "C0FDCED6",
+                "C08D698A",
+                "BFA1B33E",
+                "4105CCF3",
+                "40D403B0",
+                "C1E8ED5C"
+              ],
+              "y" : 
+              [
+                "415CB1C8",
+                "4151CDE2",
+                "414A1A40",
+                "4135A30D",
+                "40F86842",
+                "40ACB32C",
+                "405FE6FA",
+                "3FF58D87",
+                "3F45BA0A",
+                "3E540748",
+                "3E540748",
+                "C0DE231E",
+                "C0DB5619"
+              ]
+            }
+          }
+        ],
+        "id" : 2,
+        "linearVelocity" : 0,
+        "name" : "leftground",
+        "position" : 0,
+        "type" : "static"
+      },
+      
+      {
+        "angle" : 0,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : "3F4CCCCD",
+            "id" : 3,
+            "name" : "rightground",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                "C1BEEA94",
+                "C1AC7C87",
+                "C19B873E",
+                "C186043C",
+                "C15B0622",
+                "C11711F1",
+                "C08ACF5D",
+                "BFD18260",
+                "3FBC7940",
+                "406F01B0",
+                "40C5A868",
+                "40CC426E",
+                "40FB01FC",
+                "40F7F24E",
+                "C1B3C4A4"
+              ],
+              "y" : 
+              [
+                "BF0B7740",
+                "BF92ED89",
+                "BFBF189B",
+                "BFB626E6",
+                "BFD87E91",
+                "BFBC96B8",
+                "BFD42D68",
+                "BFC0E2D6",
+                "BFD8F86F",
+                "BFC09C3E",
+                "BFCB8264",
+                "3F2C5D08",
+                "3F2C5D08",
+                "C0DE231E",
+                "C0DB5619"
+              ]
+            }
+          }
+        ],
+        "id" : 3,
+        "linearVelocity" : 0,
+        "name" : "rightground",
+        "position" : 
+        {
+          "x" : "42359950",
+          "y" : "BDA30180"
+        },
+        "type" : "static"
+      },
+      
+      {
+        "angle" : "3FC56A16",
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : "3F19999A",
+            "id" : 9,
+            "name" : "fixture0",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                "BF05F830",
+                "BF85A2A9",
+                "BE7434CC",
+                "BEAD3592",
+                "BEE20768",
+                "BDD388A5",
+                "3E41A1EE",
+                "3EB79BC6",
+                "3F28B5CF",
+                "3F150F3B",
+                "3E9FCE97",
+                "3E51F060",
+                "3E07C347",
+                "3E74034C",
+                "3DC96EA0",
+                "BE0FB8C9",
+                "BEAA8912",
+                "BECFB17A",
+                "BE605303",
+                "BEFF5B54",
+                "BF60F521",
+                "BF4B81FF",
+                "BF0228EF",
+                "BF08A9F7",
+                "BF4AC801",
+                "BF54E81A",
+                "BF86430C",
+                "BF905DC3",
+                "BF6A824D",
+                "BF64FFD8",
+                "BF7A0B2E",
+                "BF1EFB95"
+              ],
+              "y" : 
+              [
+                "BDB61AB4",
+                "BF769294",
+                "BF85EE4E",
+                "BDA8CA16",
+                "3EEC4752",
+                "3F4C87FD",
+                "3FA12108",
+                "3FD44FEE",
+                "4009644E",
+                "400C4882",
+                "3FE14066",
+                "400BB492",
+                "40092023",
+                "3FD6A2A8",
+                "3FA7E16E",
+                "3F7889DB",
+                "3FABA584",
+                "3FA71FF0",
+                "3F620929",
+                "3F14A258",
+                "3FBAE056",
+                "3FF34856",
+                "4008824A",
+                "400C2D86",
+                "40004E57",
+                "401CA814",
+                "403F914C",
+                "403D2BF4",
+                "401B0C01",
+                "3FF5289C",
+                "3FB5B1F2",
+                "3EF23C88"
+              ]
+            }
+          }
+        ],
+        "id" : 7,
+        "linearVelocity" : 0,
+        "massData-I" : "400DBFF5",
+        "massData-center" : 
+        {
+          "x" : "BEEB5A67",
+          "y" : "3F07CDB8"
+        },
+        "massData-mass" : "3F96C4C0",
+        "name" : "dynamicbody0",
+        "position" : 
+        {
+          "x" : "42051E1B",
+          "y" : "BF14FDB1"
+        },
+        "type" : "dynamic"
+      },
+      
+      {
+        "angle" : "3A8DDCA0",
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : "3F4CCCCD",
+            "id" : 14,
+            "name" : "jumpramp",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : [ "C04837F8", "3FB4A8EC", "3FB27DD8", "BF4BEB30" ],
+              "y" : [ "BEC05E5C", "BEC05E5C", "3F621534", "3DCA25D0" ]
+            }
+          }
+        ],
+        "id" : 12,
+        "linearVelocity" : 0,
+        "massData-I" : "4038ECD0",
+        "massData-center" : 
+        {
+          "x" : "3C2BE40D",
+          "y" : "3C97E6D3"
+        },
+        "massData-mass" : "401D9BD8",
+        "name" : "jumpramp",
+        "position" : 
+        {
+          "x" : "42259F2A",
+          "y" : "4033F0FB"
+        },
+        "type" : "dynamic"
+      }
+    ],
+    "subStepping" : false,
+    "warmStarting" : true
+  }
+}
