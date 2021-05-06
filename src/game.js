@@ -53,14 +53,14 @@ const sceneOptions = [
 
 export class Game {
   parameters = {
-    currentScene: 'bike'
+    currentScene: 'rubegoldberg'
   };
   constructor(engine) {
     Box2D = engine;
   }
 
   initGui() {
-    gui.add(this.parameters, 'currentScene').options(sceneOptions).onChange(name => {
+    gui.add(this.parameters, 'currentScene').options(sceneOptions).name("Scene").onChange(name => {
       this.refreshScene();
     });
   }
