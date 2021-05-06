@@ -5,8 +5,8 @@ const e_pairBit = 0x0008;
 const e_centerOfMassBit = 0x0010;
 
 import { createWorld } from "./lib/loader";
-import scene from "./scenes/rubegoldberg.json";
 import { Vector } from "./lib/vector";
+import * as dat from 'dat.gui';
 
 export let Box2D;
 
@@ -32,12 +32,40 @@ let PTM;
 let minPTM = 0.1;
 let maxPTM = 300;
 
+const gui = new dat.GUI({name: 'Parameters'});
+
+const sceneOptions = [
+  'bike',
+'bodyTypes',
+'car',
+'clock',
+'documentA',
+'documentB',
+'fixtureTypes',
+'gettingStarted',
+'images',
+'jointTypes',
+'rubegoldberg',
+'tank',
+'truck',
+'walker'
+]
+
+
 export class Game {
+  parameters = {
+    currentScene: 'rubegoldberg'
+  }
   constructor(engine) {
     Box2D = engine;
   }
 
+  initGui() {
+    gui.add(this.parameters, 'currentScene').options(...sceneOptions);
+  }
+
   init(canvas) {
+    this.initGui();
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
 
@@ -47,7 +75,7 @@ export class Game {
     this.world.SetDebugDraw(this.debugDraw);
 
     this.loadTestScene();
-
+    let loader = this.loadSceneAsync(this.parameters.currentScene);
     let current = new Date().getTime();
     let prev = new Date().getTime();
     const mainLoop = () => {
@@ -58,10 +86,17 @@ export class Game {
       // setTimeout(mainLoop, 1500);
       window.requestAnimationFrame(mainLoop);
     };
+    loader.then(scene => {
+      this.world = this.loadScene(scene);
+    })
     window.requestAnimationFrame(mainLoop);
   }
 
-  loadTestScene() {
+  loadSceneAsync(name) {
+    return fetch(`./scenes/${name}.json`).then(r => r.json());
+  }
+
+  loadScene(scene) {
     PTM = 24;
     canvasOffset = {
       x: this.canvas.width / 2 - 500,
