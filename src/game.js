@@ -4,7 +4,7 @@ const e_aabbBit = 0x0004;
 const e_pairBit = 0x0008;
 const e_centerOfMassBit = 0x0010;
 
-import { createWorld } from "./lib/loader";
+import { createWorld, loadWorld } from "./lib/loader";
 import { Vector } from "./lib/vector";
 import * as dat from 'dat.gui';
 
@@ -51,31 +51,36 @@ const sceneOptions = [
 'walker'
 ]
 
-
 export class Game {
   parameters = {
-    currentScene: 'rubegoldberg'
-  }
+    currentScene: 'bike'
+  };
   constructor(engine) {
     Box2D = engine;
   }
 
   initGui() {
-    gui.add(this.parameters, 'currentScene').options(...sceneOptions);
+    gui.add(this.parameters, 'currentScene').options(sceneOptions).onChange(name => {
+      this.refreshScene();
+    });
   }
 
   init(canvas) {
     this.initGui();
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-
-    this.world = this.loadTestScene();
-    this.debugDraw = this.getDebugDraw();
-    this.debugDraw.SetFlags(e_shapeBit | e_jointBit | e_pairBit);
-    this.world.SetDebugDraw(this.debugDraw);
-
-    this.loadTestScene();
     let loader = this.loadSceneAsync(this.parameters.currentScene);
+    loader.then(scene => {
+      this.world = this.loadScene(scene);
+      this.debugDraw = this.getDebugDraw();
+      this.debugDraw.SetFlags(e_shapeBit | e_jointBit | e_pairBit);
+      this.world.SetDebugDraw(this.debugDraw);
+
+      this.setupGameloop();
+    });
+  }
+
+  setupGameloop() {
     let current = new Date().getTime();
     let prev = new Date().getTime();
     const mainLoop = () => {
@@ -86,10 +91,17 @@ export class Game {
       // setTimeout(mainLoop, 1500);
       window.requestAnimationFrame(mainLoop);
     };
-    loader.then(scene => {
-      this.world = this.loadScene(scene);
-    })
     window.requestAnimationFrame(mainLoop);
+  }
+
+  refreshScene() {
+    let loader = this.loadSceneAsync(this.parameters.currentScene);
+    return loader.then(scene => {
+      this.world = createWorld(scene);
+      this.debugDraw.SetFlags(e_shapeBit | e_jointBit | e_pairBit);
+      this.world.SetDebugDraw(this.debugDraw);
+      this.setupDebugControls();
+    });   
   }
 
   loadSceneAsync(name) {
@@ -106,10 +118,13 @@ export class Game {
     return createWorld(scene);
   }
 
+  setupDebugControls() {
+    this.mouseJointGroundBody = this.world.CreateBody(new Box2D.b2BodyDef());
+  }
+
   getDebugDraw() {
     const context = this.ctx;
     const canvas = this.canvas;
-    const world = this.world;
     let scrolling = false;
     function addEventListeners() {
       canvas.addEventListener(
@@ -270,7 +285,7 @@ export class Game {
       return false;
     };
 
-    var mouseJointGroundBody = world.CreateBody(new Box2D.b2BodyDef());
+    this.mouseJointGroundBody = this.world.CreateBody(new Box2D.b2BodyDef());
     var mouseDown = false;
 
     const startMouseJoint = () => {
@@ -292,19 +307,19 @@ export class Game {
         mousePosWorld.x,
         mousePosWorld.y
       );
-      world.QueryAABB(queryCallback, aabb);
+      this.world.QueryAABB(queryCallback, aabb);
 
       if (queryCallback.m_fixture) {
         var body = queryCallback.m_fixture.GetBody();
         var md = new Box2D.b2MouseJointDef();
-        md.set_bodyA(mouseJointGroundBody);
+        md.set_bodyA(this.mouseJointGroundBody);
         md.set_bodyB(body);
         md.set_target(new Box2D.b2Vec2(mousePosWorld.x, mousePosWorld.y));
         md.set_maxForce(1000 * body.GetMass());
         md.set_collideConnected(true);
 
         mouseJoint = Box2D.castObject(
-          world.CreateJoint(md),
+          this.world.CreateJoint(md),
           Box2D.b2MouseJoint
         );
         body.SetAwake(true);
@@ -360,11 +375,11 @@ export class Game {
       }
     }
 
-    function onMouseUp(canvas, evt) {
+    const onMouseUp = (canvas, evt) => {
       mouseDown = false;
       updateMousePos(canvas, evt);
       if (mouseJoint != null) {
-        world.DestroyJoint(mouseJoint);
+        this.world.DestroyJoint(mouseJoint);
         mouseJoint = null;
       }
       if (scrolling) {
