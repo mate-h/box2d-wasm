@@ -13,6 +13,7 @@
     "@snowpack/web-test-runner-plugin": "^0.2.2",
     "@testing-library/svelte": "^3.0.3",
     "@web/test-runner": "^0.13.3",
+    "canvas2svg": "^1.0.16",
     "chai": "^4.3.4",
     "dat.gui": "^0.7.7",
     "snowpack": "^3.3.7"

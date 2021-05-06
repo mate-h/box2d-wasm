@@ -4,6 +4,7 @@ const e_aabbBit = 0x0004;
 const e_pairBit = 0x0008;
 const e_centerOfMassBit = 0x0010;
 
+import C2S from 'canvas2svg';
 import { createWorld, loadWorld } from "./lib/loader";
 import { Vector } from "./lib/vector";
 import * as dat from 'dat.gui';
@@ -52,17 +53,31 @@ const sceneOptions = [
 ]
 
 export class Game {
-  parameters = {
-    currentScene: 'rubegoldberg'
-  };
   constructor(engine) {
     Box2D = engine;
   }
+
+  exportSvg() {
+    const ctx = new C2S();
+    ctx.resetTransform = () => {};
+    this.setDebugDraw(ctx);
+    this.draw(ctx);
+    const str = ctx.getSerializedSvg();
+    this.setDebugDraw();
+    console.save(str, 'export.svg');
+  }
+
+  parameters = {
+    currentScene: 'rubegoldberg',
+  };
 
   initGui() {
     gui.add(this.parameters, 'currentScene').options(sceneOptions).name("Scene").onChange(name => {
       this.refreshScene();
     });
+    gui.add({ exportSvg: () => {
+      this.exportSvg();
+    } }, 'exportSvg').name("Export SVG");
   }
 
   init(canvas) {
@@ -72,12 +87,18 @@ export class Game {
     let loader = this.loadSceneAsync(this.parameters.currentScene);
     loader.then(scene => {
       this.world = this.loadScene(scene);
-      this.debugDraw = this.getDebugDraw();
-      this.debugDraw.SetFlags(e_shapeBit | e_jointBit | e_pairBit);
-      this.world.SetDebugDraw(this.debugDraw);
-
+      this.debugDraw = this.setDebugDraw();
+      this.debugDraw.addEventListeners();
       this.setupGameloop();
     });
+  }
+
+  setDebugDraw(context) {
+    if (!context) context = this.ctx;
+    const debugDraw = this.getDebugDraw(context);
+    debugDraw.SetFlags(e_shapeBit | e_jointBit | e_pairBit);
+    this.world.SetDebugDraw(debugDraw);
+    return debugDraw;
   }
 
   setupGameloop() {
@@ -122,11 +143,11 @@ export class Game {
     this.mouseJointGroundBody = this.world.CreateBody(new Box2D.b2BodyDef());
   }
 
-  getDebugDraw() {
-    const context = this.ctx;
+  getDebugDraw(context) {
     const canvas = this.canvas;
     let scrolling = false;
-    function addEventListeners() {
+    const debugDraw = new Box2D.JSDraw();
+    debugDraw.addEventListeners = () => {
       canvas.addEventListener(
         "pointermove",
         function(evt) {
@@ -412,9 +433,6 @@ export class Game {
       }
     }
 
-    addEventListeners();
-
-    const debugDraw = new Box2D.JSDraw();
     debugDraw.DrawSegment = function(vert1, vert2, color) {
       setColorFromDebugDrawCallback(color);
       drawSegment(vert1, vert2);
@@ -454,11 +472,16 @@ export class Game {
     this.draw();
   }
 
-  draw() {
+  draw(ctx) {
+    let compat = false;
+    if (!ctx) {
+      ctx = this.ctx;
+    } else {
+      compat = true;
+    }
     // clear previous frame
-    const ctx = this.ctx;
     const canvas = this.canvas;
-    ctx.resetTransform();
+    if (!compat) ctx.resetTransform();
 
     ctx.fillStyle = "#212121";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
